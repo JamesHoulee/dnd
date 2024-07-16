@@ -37,6 +37,31 @@ public class Attack {
         System.out.print (randomNumber);
         System.out.print (" + ");
       }
+      else if (type.compareTo ("d6") == 0) {
+        randomNumber = random.nextInt(6) + 1;
+        System.out.print (randomNumber);
+        System.out.print (" + ");
+      }
+      else if (type.compareTo ("d8") == 0) {
+        randomNumber = random.nextInt(8) + 1;
+        System.out.print (randomNumber);
+        System.out.print (" + ");
+      }
+      else if (type.compareTo ("d10") == 0) {
+        randomNumber = random.nextInt(10) + 1;
+        System.out.print (randomNumber);
+        System.out.print (" + ");
+      }
+      else if (type.compareTo ("d12") == 0) {
+        randomNumber = random.nextInt(12) + 1;
+        System.out.print (randomNumber);
+        System.out.print (" + ");
+      }
+      else if (type.compareTo ("d20") == 0) {
+        randomNumber = random.nextInt(20) + 1;
+        System.out.print (randomNumber);
+        System.out.print (" + ");
+      }
       total += randomNumber;
     }
     return total;

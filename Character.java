@@ -6,9 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.Random;
+import java.awt.Image;
 
 
-public abstract class Character extends JLabel implements MouseListener, MouseMotionListener {
+public abstract class Character extends JPanel implements MouseListener, MouseMotionListener {
   protected int mouseX, mouseY; // Variables to store the mouse coordinates
   private BufferedImage image; // Variable to store the image
   private JPopupMenu popupMenu;
@@ -20,7 +21,11 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
   private String name;
   private int maxHealth;
   private int currHealth;
-  private int ac;
+  protected int ac;
+  
+  private int initiativeBonus;
+  
+  private int [] stats; //strength, dexterity, constitution, intelligence, wisdom, charisma
   
   protected Attack [] attackList;
   protected Spell [] spellList;
@@ -33,49 +38,70 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
     spellList = sp;
     attackList = att;
     
+    initiativeBonus = 0;
+    
+    int temp [] = {0,0,0,0,0,0};
+    stats = temp;
+    
     setLayout(new BorderLayout());
     
+    JPanel panel = new JPanel();
+    panel.setLayout(new BorderLayout());
+    
     // Create text field and add to panel (above the image)
-    textField = new JTextField(name + ": " + currHealth + "/" + maxHealth + "Hp, " + ac + "AC");
+    textField = new JTextField(name);
     textField.setEditable(false); // Make text field read-only
-    add(textField, BorderLayout.NORTH);
+    panel.add(textField, BorderLayout.NORTH);
     
     // Load the image
     try {
+      /*image = ImageIO.read(new File(imagePath));
+      Image scaledImage = image.getScaledInstance(50,50, Image.SCALE_SMOOTH);
+      setIcon(new ImageIcon(scaledImage)); // Set the image as icon of the JLabel
+      */
       image = ImageIO.read(new File(imagePath));
-      setIcon(new ImageIcon(image)); // Set the image as icon of the JLabel
+      Image scaledImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+      JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
+      panel.add(imageLabel, BorderLayout.CENTER); // Add the image to the center of the panel
     } catch (IOException e) {
       e.printStackTrace();
     }
     
+    add(panel, BorderLayout.CENTER);
+    
     // Set label properties
-    setOpaque(true);
+    panel.setOpaque(false);
     setBackground(Color.white);
+    
+    //textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height));
+    //panel.setPreferredSize(new Dimension(50, 50 + textField.getPreferredSize().height));
     
     // Create popup menu with options
     popupMenu = new JPopupMenu();
-    JMenuItem option1 = new JMenuItem("Roll");
+    JMenuItem option1 = new JMenuItem("Check/Save");
     JMenuItem option2 = new JMenuItem("Heal");
     JMenuItem option3 = new JMenuItem("Damage");
     JMenuItem option4 = new JMenuItem("Attacks");
     JMenuItem option5 = new JMenuItem("Spells");
+    JMenuItem option6 = new JMenuItem("AC");
     popupMenu.add(option1);
     popupMenu.add(option2);
     popupMenu.add(option3);
     popupMenu.add(option4);
     popupMenu.add(option5);
+    popupMenu.add(option6);
     
     // Add action listeners to menu items
     option1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         JPopupMenu subMenu = new JPopupMenu();
-        JMenuItem subOption1 = new JMenuItem("Roll d4");
-        JMenuItem subOption2 = new JMenuItem("Roll d6");
-        JMenuItem subOption3 = new JMenuItem("Roll d8");
-        JMenuItem subOption4 = new JMenuItem("Roll d10");
-        JMenuItem subOption5 = new JMenuItem("Roll d12");
-        JMenuItem subOption6 = new JMenuItem("Roll d20");
+        JMenuItem subOption1 = new JMenuItem("Strength");
+        JMenuItem subOption2 = new JMenuItem("Dexterity");
+        JMenuItem subOption3 = new JMenuItem("Constitution");
+        JMenuItem subOption4 = new JMenuItem("Intelligence");
+        JMenuItem subOption5 = new JMenuItem("Wisdom");
+        JMenuItem subOption6 = new JMenuItem("Charisma");
         
         subMenu.add(subOption1);
         subMenu.add(subOption2);
@@ -84,55 +110,47 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
         subMenu.add(subOption5);
         subMenu.add(subOption6);
         
-        subOption1.addActionListener(new ActionListener() {
+        subOption1.addActionListener (new ActionListener () {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(4) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
-          }
-        });
-        subOption2.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(6) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
-          }
-        });
-        subOption3.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(8) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
-          }
-        });
-        subOption4.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(10) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
-          }
-        });
-        subOption5.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(12) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
-          }
-        });
-        subOption6.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(20) + 1;
-            JOptionPane.showMessageDialog(Character.this, "Random number: " + randomNumber);
+          public void actionPerformed (ActionEvent e) {
+            save (0);
           }
         });
         
+        subOption2.addActionListener (new ActionListener () {
+          @Override
+          public void actionPerformed (ActionEvent e) {
+            save (1);
+          }
+        });
+        
+        subOption3.addActionListener (new ActionListener () {
+          @Override
+          public void actionPerformed (ActionEvent e) {
+            save (2);
+          }
+        });
+        
+        subOption4.addActionListener (new ActionListener () {
+          @Override
+          public void actionPerformed (ActionEvent e) {
+            save (3);
+          }
+        });
+        
+        subOption5.addActionListener (new ActionListener () {
+          @Override
+          public void actionPerformed (ActionEvent e) {
+            save (4);
+          }
+        });
+        
+        subOption6.addActionListener (new ActionListener () {
+          @Override
+          public void actionPerformed (ActionEvent e) {
+            save (5);
+          }
+        });
         
         subMenu.show(Character.this, mouseX+20, mouseY);
       }
@@ -149,7 +167,12 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
             if (currHealth > maxHealth) {
               currHealth = maxHealth;
             }
-            textField.setText(name + ": " + currHealth + "/" + maxHealth + "Hp, " + ac + "AC");
+            System.out.println ("Healed " + number + " hp. " + currHealth + "/" + maxHealth);
+            
+            if (currHealth > 0) {
+              textField.setText(name);
+            }
+            
             repaint(); // Refresh the drawing after the input is received
           } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(Character.this, "Invalid number entered. Please try again.");
@@ -169,7 +192,14 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
             if (currHealth < 0) {
               currHealth = 0;
             }
-            textField.setText(name + ": " + currHealth + "/" + maxHealth + "Hp, " + ac + "AC");
+            System.out.println ("Took " + number + " damage. " + currHealth + "/" + maxHealth);
+            
+            if (currHealth == 0) {
+              textField.setText ("dead");
+            }
+            else {
+              textField.setText(name);
+            }
             repaint(); // Refresh the drawing after the input is received
           } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(Character.this, "Invalid number entered. Please try again.");
@@ -193,11 +223,56 @@ public abstract class Character extends JLabel implements MouseListener, MouseMo
         spell.show(Character.this, mouseX + 20, mouseY);
       }
     });
+    
+    option6.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        JOptionPane.showMessageDialog(Character.this, "AC: " + ac);
+      }
+    });
       
     
     // Add mouse listeners
     addMouseListener(this);
     addMouseMotionListener(this);
+  }
+  
+  public Character (String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int str, int dex, int cons, int intel, int wis, int rizz) {
+    this (imagePath, n, h, a, att, sp);
+    
+    stats[0] = str;
+    stats[1] = dex;
+    stats[2] = cons;
+    stats[3] = intel;
+    stats[4] = wis;
+    stats[5] = rizz;
+  }
+  
+  public int rollInitiative () {
+    Random random = new Random();
+    int randomNumber = random.nextInt(20) + 1;
+    
+    System.out.println ("Rolled: " + randomNumber + " + " + initiativeBonus);
+    
+    return randomNumber + initiativeBonus;
+  }
+  
+  public void setInitiativeBonus (int b) {
+    initiativeBonus = b;
+  }
+  
+  public String getName () {
+    return name;
+  }
+  
+  private void save (int type) {
+    Random random = new Random();
+    int randomNumber = random.nextInt(20) + 1;
+    
+    int bonus = (stats[type] - 10) / 2;
+    
+    System.out.println ("Rolled: " + randomNumber + " + " + bonus);
+    JOptionPane.showMessageDialog(Character.this, "Rolled: " + randomNumber + " + " + bonus);
   }
   
   @Override

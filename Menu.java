@@ -1,7 +1,8 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.awt.Toolkit;
+import java.awt.Dimension;
 
 public class Menu extends JPanel implements MouseListener, MouseMotionListener {
   
@@ -17,7 +18,7 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
     setLayout (layout);
     
     m1 = new JMenuItem ("Roll");
-    m2 = new JMenuItem ("Second");
+    m2 = new JMenuItem ("Map");
     
     layout.putConstraint (layout.WEST, m1, 0, layout.WEST, this);
     layout.putConstraint (layout.WEST, m2, 0, layout.EAST, m1);
@@ -32,9 +33,13 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
         howManyDice = new JPopupMenu ();
         JMenuItem one = new JMenuItem("1");
         JMenuItem two = new JMenuItem("2");
+        JMenuItem three = new JMenuItem("3");
+        JMenuItem four = new JMenuItem("4");
         
         howManyDice.add (one);
         howManyDice.add (two);
+        howManyDice.add (three);
+        howManyDice.add (four);
         
         one.addActionListener(new ActionListener() {
           @Override
@@ -50,10 +55,24 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
           }
         });
         
+        three.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            getDiceType(3);
+          }
+        });
+        
+        four.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            getDiceType(4);
+          }
+        });
+        
         mouseX = e.getX();
         mouseY = e.getY();
         
-        howManyDice.show (Menu.this, mouseX, mouseY);
+        howManyDice.show (Menu.this, mouseX, mouseY-20);
       }
       
       @Override
@@ -73,8 +92,17 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
     addMouseMotionListener(Menu.this);
     
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    setMinimumSize (new Dimension ((int) screenSize.width / 3,(int) screenSize.height / 3));
+    setMinimumSize (new Dimension ((int) screenSize.width / 5,(int) screenSize.height / 5));
     
+  }
+  
+  @Override
+  public Dimension getPreferredSize() {
+    // so that our GUI is big enough
+    
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    
+    return new Dimension((int) (screenSize.width / 5), (int) (screenSize.height / 5));
   }
   
   private void getDiceType (final int num) {
@@ -105,6 +133,30 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
         roll(num, 6);
+      }
+    });
+    option3.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        roll(num, 8);
+      }
+    });
+    option4.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        roll(num, 10);
+      }
+    });
+    option5.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        roll(num, 12);
+      }
+    });
+    option6.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        roll(num, 20);
       }
     });
     

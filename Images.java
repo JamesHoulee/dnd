@@ -37,6 +37,8 @@ public class Images extends JLabel {
   private SpringLayout layout;
   private BufferedImage image;
   private JLabel imageLabel;
+  
+  private Boolean isBackground;
 
   /**
    * This is the constructor for the Images class. It sets the image width and
@@ -50,8 +52,10 @@ public class Images extends JLabel {
    * @param imgWidth  contains the width of the image
    * @param imgHeight contains the height of the image
    */
-  public Images(String img, int imgWidth, int imgHeight) {
-
+  public Images(String img) {
+    
+    isBackground = true;
+    
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     imageWidth = screenSize.width;
     imageHeight = screenSize.height;
@@ -65,12 +69,43 @@ public class Images extends JLabel {
     // https://github.com/HCastano/FelixGame/blob/master/src/felixgame/SplashScreen.java
     try {
       image = ImageIO.read(new File(img));
-      Image scaledImage = image.getScaledInstance((int) (2 * imageWidth / 3),(int) (2 * imageHeight / 3), Image.SCALE_SMOOTH);
+      Image scaledImage = image.getScaledInstance((int) (4 * imageHeight / 5),(int) (4 * imageHeight / 5), Image.SCALE_SMOOTH);
       imageLabel = new JLabel(new ImageIcon(scaledImage));
       add(imageLabel);
     } catch (IOException e) {
     }
     // End of cited code
+  }
+  
+  public Images(String img, int imgWidth, int imgHeight) {
+
+    isBackground = false;
+    
+    imageWidth = imgWidth;
+    imageHeight = imgHeight;
+
+    layout = new SpringLayout();
+    setLayout(layout);
+
+    setVisible(true);
+
+    // This block of code was modified based on the code from
+    // https://github.com/HCastano/FelixGame/blob/master/src/felixgame/SplashScreen.java
+    /*try {
+      image = ImageIO.read(new File(img));
+      imageLabel = new JLabel(new ImageIcon(image));
+      add(imageLabel);
+    } catch (IOException e) {
+    }*/
+    // End of cited code
+    
+    try {
+      image = ImageIO.read(new File(img));
+      Image scaledImage = image.getScaledInstance(imageWidth, imageHeight, Image.SCALE_SMOOTH);
+      imageLabel = new JLabel(new ImageIcon(scaledImage));
+      add(imageLabel);
+    } catch (IOException e) {
+    }
   }
 
   /**
@@ -82,6 +117,10 @@ public class Images extends JLabel {
   @Override
   public Dimension getPreferredSize() {
     // so that our GUI is big enough
-    return new Dimension((int) (2 * imageWidth / 3),(int) (2 * imageHeight / 3));
+    
+    if (isBackground) {
+      return new Dimension((int) (4 * imageHeight / 5),(int) (4 * imageHeight / 5));
+    }
+    return new Dimension(imageWidth, imageHeight);
   }
 }

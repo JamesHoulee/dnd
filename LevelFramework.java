@@ -1,13 +1,10 @@
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
-import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
-import java.awt.Toolkit;
-import java.awt.Image;
 import java.awt.Dimension;
 
 /**
@@ -47,15 +44,7 @@ public abstract class LevelFramework extends JPanel implements ActionListener, K
   
   protected SpringLayout layout;
   
-  protected Timer timer;
-  protected int x,y,dx,dy;
-  protected int time;
-  
   protected Images background;
-  
-  private Dimension screenSize;
-  private int imageWidth;
-  private int imageHeight;
   
   protected Character [] characters;
   
@@ -66,23 +55,27 @@ public abstract class LevelFramework extends JPanel implements ActionListener, K
    */
   public LevelFramework (){
     
-    screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    imageWidth = screenSize.width;
-    imageHeight = screenSize.height;
-    
-    setMinimumSize (new Dimension ((int) 2 * imageWidth / 3,(int) 2 * imageHeight / 3));
-    
-    System.out.println (2 * imageWidth / 3);
-    System.out.println (2 * imageHeight / 3);
-    
     layout = new SpringLayout ();
     setLayout (layout);
     
-    timer = new Timer (5, this);
-    
-    dx = 0;
-    dy = 0;
+    Character c [] = {};
+    characters = c;
   }
+  
+  public LevelFramework (Character [] c) {
+    this ();
+    
+    characters = c;
+  }
+  
+  public void rollInitiative () {
+    
+    for (int i = 0; i < characters.length; i++) {
+      System.out.print (characters[i].getName () + " ");
+      characters[i].rollInitiative ();
+    }
+  }
+    
   
   public abstract void actionPerformed (ActionEvent e);
   
@@ -105,11 +98,8 @@ public abstract class LevelFramework extends JPanel implements ActionListener, K
     revalidate ();
   }
   
-  @Override
-  public Dimension getPreferredSize() {
-    // so that our GUI is big enough
-    return new Dimension((int) (2 * imageWidth / 3),(int) (2 * imageHeight / 3));
-  }
+  
+  public abstract Dimension getPreferredSize();
 }
                           
     

@@ -10,13 +10,18 @@ public class Dnd {
         JPanel container = new JPanel ();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         
-        Undercity un = new Undercity ();
+        AttackPort un = new AttackPort ();
+        
+        JScrollPane display = new JScrollPane (un, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
         Menu m = new Menu ();
        
 
         
-        container.add (un);
+        container.add (display);
         container.add (m);
+        
+        un.rollInitiative ();
         
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         
