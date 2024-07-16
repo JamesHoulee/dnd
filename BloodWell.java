@@ -3,12 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Dimension;
 
-public class AttackPort extends LevelFramework implements ActionListener{
+public class BloodWell extends LevelFramework implements ActionListener{
   
   private int backgroundWidth, backgroundHeight;
   
   
-  public AttackPort (){
+  public BloodWell (){
     setLayout (null);
     
      // Create and add draggable image labels
@@ -16,23 +16,23 @@ public class AttackPort extends LevelFramework implements ActionListener{
     Attack [] noAttacks = {};
     
     Character liam = new Players("CumGoblin.png", "Liam", 1, 1, noAttacks, noSpells);
-    liam.setBounds(700, 900, liam.getPreferredSize().width, liam.getPreferredSize().height);
+    liam.setBounds(700, 600, liam.getPreferredSize().width, liam.getPreferredSize().height);
     add(liam);
     
     Character gabe = new Players("Gabe.png", "Gabe", 1, 1, noAttacks, noSpells);
-    gabe.setBounds(660, 900, gabe.getPreferredSize().width, gabe.getPreferredSize().height);
+    gabe.setBounds(750, 650, gabe.getPreferredSize().width, gabe.getPreferredSize().height);
     add(gabe);
     
     Character alex = new Players("Alex.png", "Alex", 1, 1, noAttacks, noSpells);
-    alex.setBounds(620, 900, alex.getPreferredSize().width, alex.getPreferredSize().height);
+    alex.setBounds(710, 700, alex.getPreferredSize().width, alex.getPreferredSize().height);
     add(alex);
     
     Character jared = new Players("Jared.png", "Jared", 1, 1, noAttacks, noSpells);
-    jared.setBounds(580, 900, jared.getPreferredSize().width, jared.getPreferredSize().height);
+    jared.setBounds(760, 600, jared.getPreferredSize().width, jared.getPreferredSize().height);
     add(jared);
     
     Character evan = new Players("Evan.png", "Evan", 1, 1, noAttacks, noSpells);
-    evan.setBounds(540, 900, evan.getPreferredSize().width, evan.getPreferredSize().height);
+    evan.setBounds(800, 840, evan.getPreferredSize().width, evan.getPreferredSize().height);
     add(evan);
     
     WorldObject chest = new WorldObject ("Chest.png", "Chest", "The chest contains a +1 dagger and 2 potions of healing");
@@ -40,40 +40,39 @@ public class AttackPort extends LevelFramework implements ActionListener{
    
     add(chest);
     
-    backgroundWidth = 1000;
-    backgroundHeight = 1000;
+    backgroundWidth = 1200;
+    backgroundHeight = 800;
 
-    background = new Images ("ShantalorePort.jpg", backgroundWidth, backgroundHeight);
+    background = new Images ("BloodWell.png", backgroundWidth, backgroundHeight);
     background.setBounds(0, 0, backgroundWidth, backgroundHeight);
     
     
     Melkohm melkohm = new Melkohm ("Melkohm.png", 4);
-    melkohm.setBounds(500, 900, melkohm.getPreferredSize().width, melkohm.getPreferredSize().height);
+    melkohm.setBounds(810, 590, melkohm.getPreferredSize().width, melkohm.getPreferredSize().height);
     add(melkohm);
     
-    WorldObject soldier = new WorldObject ("Soldier.png", "", "");
-    soldier.setBounds (325, 635, soldier.getPreferredSize().width, soldier.getPreferredSize().height);
-    add (soldier);
     
-    BloodHealer healer = new BloodHealer ("FemaleBH.png", "Healer", 4);
-    healer.setBounds (250, 100, healer.getPreferredSize().width, healer.getPreferredSize().height);
-    add (healer);
+    Ogre bloodOgre = new Ogre ("BloodOgre.png", "Blood Ogre");
+    bloodOgre.setBounds(475, 360, bloodOgre.getPreferredSize().width, bloodOgre.getPreferredSize().height);
+    add(bloodOgre);
     
-    OrcWarrior orc1 = new OrcWarrior ("OrcWarrior.png", "Orc 1", 4, false);
-    orc1.setBounds (190, 110,  orc1.getPreferredSize().width, orc1.getPreferredSize().height);
-    add (orc1);
     
-    OrcWarrior orc2 = new OrcWarrior ("OrcWarrior.png", "Orc 2", 4, false);
-    orc2.setBounds (95, 110,  orc2.getPreferredSize().width, orc2.getPreferredSize().height);
-    add (orc2);
     
-    OrcWarrior tank = new OrcWarrior ("OrcTank.png", "Orc 3", 4, true);
-    tank.setBounds (135, 115,  tank.getPreferredSize().width, tank.getPreferredSize().height);
-    add (tank);
+    BloodHealer valentezna = new BloodHealer ("Valentezna.png", "Val", 4);
+    valentezna.setBounds (800, 690, valentezna.getPreferredSize().width, valentezna.getPreferredSize().height);
+    add (valentezna);
+    
+    
+    /*BloodFighter leader = new BloodFighter ("Lise.png", "Lise", 4);
+    leader.setBounds (870, 105, leader.getPreferredSize().width, leader.getPreferredSize().height);
+    add (leader);*/
+    WorldObject leader = new WorldObject ("Lise.png", "Lise", "", 100);
+    leader.setBounds(680, 370, leader.getPreferredSize().width, leader.getPreferredSize().height);
+    add (leader);
     
     add (background);
     
-    Character c [] = {melkohm, healer, orc1, orc2, tank};
+    Character c [] = {melkohm, bloodOgre, valentezna};
     characters = c;
   }
 

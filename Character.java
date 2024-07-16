@@ -23,6 +23,8 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   private int currHealth;
   protected int ac;
   
+  protected int size;
+  
   private int initiativeBonus;
   
   private int [] stats; //strength, dexterity, constitution, intelligence, wisdom, charisma
@@ -30,13 +32,15 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   protected Attack [] attackList;
   protected Spell [] spellList;
   
-  public Character(String imagePath, String n, int h, int a, Attack [] att, Spell [] sp) {
+  public Character(String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int s) {
     name = n;
     maxHealth = h;
     currHealth = h;
     ac = a;
     spellList = sp;
     attackList = att;
+    
+    size = s;
     
     initiativeBonus = 0;
     
@@ -60,7 +64,7 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
       setIcon(new ImageIcon(scaledImage)); // Set the image as icon of the JLabel
       */
       image = ImageIO.read(new File(imagePath));
-      Image scaledImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+      Image scaledImage = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
       JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
       panel.add(imageLabel, BorderLayout.CENTER); // Add the image to the center of the panel
     } catch (IOException e) {
@@ -237,8 +241,8 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     addMouseMotionListener(this);
   }
   
-  public Character (String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int str, int dex, int cons, int intel, int wis, int rizz) {
-    this (imagePath, n, h, a, att, sp);
+  public Character (String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int str, int dex, int cons, int intel, int wis, int rizz, int s) {
+    this (imagePath, n, h, a, att, sp, s);
     
     stats[0] = str;
     stats[1] = dex;
@@ -246,6 +250,14 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     stats[3] = intel;
     stats[4] = wis;
     stats[5] = rizz;
+  }
+  
+  public Character (String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int str, int dex, int cons, int intel, int wis, int rizz) {
+    this (imagePath, n, h, a, att, sp, str, dex, cons, intel, wis, rizz, 50);
+  }
+  
+  public Character(String imagePath, String n, int h, int a, Attack [] att, Spell [] sp) {
+    this (imagePath, n, h, a, att, sp, 50);
   }
   
   public int rollInitiative () {

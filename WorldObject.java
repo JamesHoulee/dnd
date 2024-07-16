@@ -17,10 +17,14 @@ public class WorldObject extends JPanel implements MouseListener, MouseMotionLis
   private String name;
   private String clickText;
   
-  public WorldObject (String imagePath, String n, String text) {
+  private int size;
+  
+  public WorldObject (String imagePath, String n, String text, int s) {
     
     name = n;
     clickText = text;
+    
+    size = s;
     
     setLayout(new BorderLayout());
     
@@ -30,7 +34,7 @@ public class WorldObject extends JPanel implements MouseListener, MouseMotionLis
     // Load the image
     try {
       image = ImageIO.read(new File(imagePath));
-      Image scaledImage = image.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+      Image scaledImage = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
       JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
       panel.add(imageLabel, BorderLayout.CENTER); // Add the image to the center of the panel
     } catch (IOException e) {
@@ -61,6 +65,10 @@ public class WorldObject extends JPanel implements MouseListener, MouseMotionLis
     // Add mouse listeners
     addMouseListener(this);
     addMouseMotionListener(this);
+  }
+  
+  public WorldObject (String imagePath, String n, String text) {
+    this (imagePath, n, text, 50);
   }
   
   public String getName () {
