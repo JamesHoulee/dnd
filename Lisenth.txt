@@ -1,0 +1,12 @@
+Lisenth.png,Lisenth,75
+60,17
+14,12,16,12,14,14
+a,Unarmed Strike,2,1d4,4,""
+a,Swing Sword,4,1d8,4,25% of damage done gets healed
+a,Powerful Blow,4,2d6,8,Hits all targets 10ft directly in front. 50% of damage done gets healed. Can be used twice.
+a,Slice,3,3d4,6,Hits up to 3 targets within 5ft. 25% of damage done gets healed. Can be used twice.
+s,Transfer Blood,4,1d8,1d8+4 of health moves from one creature to another. Half dmg if const save > 15
+s,Blood Orb,4,1d6,1d6+4 damage to everyone within 15ft. Half dmg if const save > 15. 25% of damage done is healed. Can be used twice.
+s,Faint,0,0d4,Blood rushes to the targets feet causing them to faint. Must roll > 14 wisdom to get up or lasts 2 turns. Can be used thrice.
+s,Blood Tendrals,0,2d8,Tendrals of blood latch on to a target and throws them. Roll > 18 dex to dodge or > 12 to take half damage. Can be used once.
+

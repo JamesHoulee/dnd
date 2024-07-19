@@ -1,0 +1,4 @@
+BloodBag2.png,Blood Bag,50
+40,10
+10,10,10,10,10,10
+a,Unarmed Strike,1,1d4,2,

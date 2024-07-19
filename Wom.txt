@@ -1,0 +1,9 @@
+Ogre.png,Wom,100
+100,15
+16,12,14,14,14,8
+a,Pummel,4,2d8,4,Smacks with both hands
+a,Stomp,2,1d8,4,Hits everyone within 10ft
+a,Club,5,1d10,4,Hit everyone 10ft x 10ft in front
+a,ThrowClub,5,1d10,4,Hits everyone in a 10ft wide line. If roll > 14 dex, then dodged
+a,Grab,0,0d4,0,Grabs target if they roll < 14 dex. Once grabbed, must roll >= 14 strength to get out
+a,Toss,6,2d10,20,Tosses target up to 40ft. Roll dex >= 15 to take half dmg.

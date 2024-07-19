@@ -1,0 +1,6 @@
+MaleBH.png,Warrior,50
+40,16
+16,8,14,8,10,8
+a,Unarmed Strike,2,1d4,4,""
+a,Swing Sword,4,1d8,4,25% of damage done gets healed
+a,Powerful Blow,4,2d4,6,Hits all targets 10ft directly in front. 50% of damage done gets healed. Can be used twice.

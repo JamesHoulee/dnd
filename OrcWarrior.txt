@@ -1,0 +1,5 @@
+OrcWarrior.png,Warrior,50
+40,16
+16,8,14,8,10,8
+a,Unarmed Strike,2,1d4,4,""
+a,Swing Sword,4,1d10,4,""

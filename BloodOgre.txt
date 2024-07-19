@@ -1,0 +1,11 @@
+BloodOgre.png,Blood Ogre,125
+500,14
+16,12,14,14,14,8
+a,Pummel,4,2d6,5,Smacks with both hands
+a,Stomp,2,2d6,5,Hits everyone within 10ft. Takes 1 turn to charge.
+a,Club,5,2d10,4,Hit everyone 10ft x 10ft in front. Takes 2 turns to charge before its used.
+a,ThrowClub,5,1d10,4,Hits everyone in a 10ft wide line. If roll > 14 dex, then dodged
+a,Charge,6,1d6,20,Hits everyone in a 10ft wide lane. If roll > 18 dex, then dodged. Takes 1 turn to charge
+a,Grab,0,0d4,0,Grabs target if they roll < 14 dex. Once grabbed, must roll >= 14 strength to get out
+a,Crush,4,1d10,20,Crushes whoever is being held.
+a,Toss,6,2d10,20,Tosses target up to 40ft. Roll dex >= 15 to take half dmg.

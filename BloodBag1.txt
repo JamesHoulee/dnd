@@ -1,0 +1,5 @@
+BloodBag1.png,Blood Bag,50
+40,10
+10,10,10,10,10,10
+s,Explode Vile,5,1d4,Completely explodes sending its vile remains onto anyone within 15ft and los
+

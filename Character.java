@@ -307,6 +307,11 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
           attackList.add(new Attack (attInfo[1], Integer.parseInt(attInfo[2]), attInfo[3], Integer.parseInt(attInfo[4]), attInfo[5]));
           
           input = myReader.nextLine ();
+          
+          if (!myReader.hasNextLine()) {
+            attInfo = input.split(delim);
+            attackList.add(new Attack (attInfo[1], Integer.parseInt(attInfo[2]), attInfo[3], Integer.parseInt(attInfo[4]), attInfo[5]));
+          }
         }
         
         while (myReader.hasNextLine() && input.charAt(0) == 's') {
@@ -316,6 +321,11 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
           spellList.add(new Spell (spInfo[1], Integer.parseInt(spInfo[2]), spInfo[3], spInfo[4]));
           
           input = myReader.nextLine ();
+          
+          if (!myReader.hasNextLine() && input.length() != 0) {
+            spInfo = input.split(delim);
+            spellList.add(new Spell (spInfo[1], Integer.parseInt(spInfo[2]), spInfo[3], spInfo[4]));
+          }
         }
       }
     }

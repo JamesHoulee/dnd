@@ -1,9 +1,31 @@
-Shantalore.jpg,1814,1019
-Alex,1700,900
-Cum, 1760,910
-Evan, 1630, 870
-Melkohm, 1685, 920
-Gabe, 1500, 720
-Wom, 1555, 700
-Jared, 1760, 860
-
+Shantalore.jpg,2809,1628
+o,Chest,100,100
+o,Chest,2673,202
+o,Chest,181,1515
+o,Chest,1075,23
+o,Chest,578,289
+Cum,2540,1480
+Evan,2593,1425
+Melkohm,2650,1427
+Gabe,2558,1328
+Wom,2450,1315
+Jared,2475,1481
+Valentezna,2685,1424
+BloodBag1,2145,350
+BloodBag2,1821,33
+BloodBag2,2753,847
+BloodBag2,103,40
+BloodBag1,155,1264
+Ogre,2595,290
+Ogre,2588,85
+Lisenth,1270,790
+BloodWarrior,1350,800
+OrcWarrior,1408,807
+BloodWarrior,1211,799
+OrcTank,1137,820
+FemaleBH,1491,686
+OrcTank,1488,749
+OrcTank,1491,632
+Ogre,1353,598
+BloodWarrior,1154,552
+FemaleBH,1206,550
