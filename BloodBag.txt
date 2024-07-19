@@ -1,0 +1,7 @@
+Alex.png,Blood Bag,50
+40,10
+10,10,10,10,10,10
+a,Smack,2,1d8,4,Smacks a bitch
+a,Punch,2,1d8,4,Punches a bitch
+s,Spit,2,2d4,Spit on a bitch
+

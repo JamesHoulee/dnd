@@ -1,0 +1,3 @@
+Shantalore.jpg,1000,1000
+Ogre,655,480
+Ogre,210,255

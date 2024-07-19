@@ -1,0 +1,6 @@
+class,label,name,imgPath,level
+BloodHealer,Valentezna,Valentezna,Valentezna.png,4
+BloodHealer,FemaleBH,Healer,FemaleBH.png,4
+BloodHealer,MaleBH,Healer,MaleBH.png,4
+Melkohm,Melkohm,Melkohm,Melkohm.png,4
+Ogre,Ogre,Ogre,Ogre.png,4

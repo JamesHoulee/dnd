@@ -18,19 +18,31 @@ public class Dnd {
     String who = console.nextLine ();
     
     try {
-      File myFile = new File ("characterSheet.txt");
+      File myFile = new File (who + ".txt");
       Scanner myReader = new Scanner (myFile);
       
-      while (myReader.hasNextLine ()) {
-        String data = myReader.nextLine ();
-        
-        wordsInRow = data.split (regex);
+      wordsInRow = myReader.nextLine().split(regex);
+      
+      lf.addUndefinedCharacter (new CharFromFile (who + ".txt", wordsInRow));
+    }
+    catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+  }
 
-        if (wordsInRow[1].compareTo (who) == 0) {
-          CharacterList cl = new CharacterList ();
-          lf.addUndefinedCharacter (cl.getCharacterType (wordsInRow));
-        }
-      }
+   public static void addCharacter (LevelFramework lf, String who) {
+    
+    String regex = "[,]";
+    String [] wordsInRow;
+    
+    try {
+      File myFile = new File (who + ".txt");
+      Scanner myReader = new Scanner (myFile);
+      
+      wordsInRow = myReader.nextLine().split(regex);
+      
+      lf.addUndefinedCharacter (new CharFromFile (who + ".txt", wordsInRow));
     }
     catch (FileNotFoundException e) {
       System.out.println("An error occurred.");
@@ -66,11 +78,20 @@ public class Dnd {
     while (true) {
       input = obj.nextLine ();
       
-      if (input.compareTo ("exit") == 0) {
+      if (input.compareTo ("end") == 0) {
         break;
       }
-      if (input.compareTo ("add") == 0) {
+      else if (input.compareTo ("add") == 0) {
         addCharacter (lf);
+      }
+      else if (input.substring (0,3).compareTo("add") == 0) {
+        String [] temp = input.split ("[\\s]");
+        
+        for (String s : temp){
+          System.out.println (s);
+        }
+        
+        addCharacter (lf, input.split("[\\s]")[1]);
       }
     }
   }
@@ -105,6 +126,9 @@ public class Dnd {
       
       else if (input.compareTo ("end") == 0) {
         break;
+      }
+      else {
+        loadLevel (new LevelFromFile (input));
       }
     }
   }  

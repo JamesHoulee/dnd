@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
+import java.util.*;
+
 
 public abstract class Character extends JPanel implements MouseListener, MouseMotionListener {
   protected int mouseX, mouseY; // Variables to store the mouse coordinates
@@ -32,16 +34,25 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   
   private int [] stats; //strength, dexterity, constitution, intelligence, wisdom, charisma
   
-  protected Attack [] attackList;
-  protected Spell [] spellList;
+  protected ArrayList<Attack> attackList;
+  protected ArrayList<Spell> spellList;
+
   
   public Character(String imagePath, String n, int h, int a, Attack [] att, Spell [] sp, int s) {
     name = n;
     maxHealth = h;
     currHealth = h;
     ac = a;
-    spellList = sp;
-    attackList = att;
+    
+    attackList = new ArrayList<Attack> ();
+    spellList = new ArrayList<Spell> ();
+    
+    for (int i = 0; i < att.length; i++) {
+      attackList.add (att[i]);
+    }
+    for (int i = 0; i < sp.length; i++) {
+      spellList.add (sp[i]);
+    }
     
     size = s;
     
@@ -256,27 +267,55 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     this (imagePath, n, h, a, att, sp, 50);
   }
   
-  public Character (String fileName) {
-    String regex = "[,]";
+  public Character (String fileName, String [] charInfo) {
+    this (charInfo[0], charInfo[1], 0, 0, new Attack [0], new Spell [0], Integer.parseInt(charInfo[2]));
     
-    
+    String delim = "[,]";
     
     try {
       File myFile = new File (fileName);
       Scanner myReader = new Scanner (myFile);
       
-      String charInfo;
-      String attackInfo;
-      String spellInfo;
+      // skip the first line
+      String input = myReader.nextLine();
       
-      while (myReader.hasNextLine ()) {
-        String data = myReader.nextLine ();
+      // gets hp,ac
+      input = myReader.nextLine ();
+      charInfo = input.split(delim);
+      maxHealth = Integer.parseInt (charInfo[0]);
+      currHealth = Integer.parseInt (charInfo[0]);
+      ac = Integer.parseInt (charInfo[1]);
+      
+      
+      // gets stats
+      input = myReader.nextLine ();
+      String [] s = input.split (delim);
+      for (int i = 0; i < 6; i++) {
+        stats[i] = Integer.parseInt (s[i]);
+      }
+      
+      // gets attacks
+      String attackInfo;
+      
+      if (myReader.hasNextLine ()) {
+        input = myReader.nextLine ();
+      
+        while (myReader.hasNextLine() && input.charAt(0) == 'a') {
+          System.out.println (input);
+          
+          String [] attInfo = input.split(delim);
+          attackList.add(new Attack (attInfo[1], Integer.parseInt(attInfo[2]), attInfo[3], Integer.parseInt(attInfo[4]), attInfo[5]));
+          
+          input = myReader.nextLine ();
+        }
         
-        wordsInRow = data.split (regex);
-
-        if (wordsInRow[1].compareTo (who) == 0) {
-          CharacterList cl = new CharacterList ();
-          lf.addUndefinedCharacter (cl.getCharacterType (wordsInRow));
+        while (myReader.hasNextLine() && input.charAt(0) == 's') {
+          System.out.println (input);
+          
+          String [] spInfo = input.split(delim);
+          spellList.add(new Spell (spInfo[1], Integer.parseInt(spInfo[2]), spInfo[3], spInfo[4]));
+          
+          input = myReader.nextLine ();
         }
       }
     }
@@ -337,19 +376,19 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   }
   
   private int useAttack (JMenuItem j) {
-    System.out.println (attackList[Integer.parseInt (j.getText().substring (0,1))].getName ());
-    return attackList [Integer.parseInt (j.getText().substring (0,1))].use();
+    System.out.println (attackList.get(Integer.parseInt (j.getText().substring (0,1))).getName ());
+    return attackList.get(Integer.parseInt (j.getText().substring (0,1))).use();
   }
   
   private int rollToHit (JMenuItem j) {
-    return attackList [Integer.parseInt (j.getText().substring (0,1))].hit();
+    return attackList.get(Integer.parseInt (j.getText().substring (0,1))).hit();
   }
   
   public void attacks (ActionEvent e) {
     attack = new JPopupMenu();
     
-    for (int i = 0; i < attackList.length; i++) {
-      final JMenuItem item = new JMenuItem (i + ". " + attackList[i].print());
+    for (int i = 0; i < attackList.size(); i++) {
+      final JMenuItem item = new JMenuItem (i + ". " + attackList.get(i).print());
       
       item.addActionListener(new ActionListener() {
           @Override
@@ -377,15 +416,15 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   }
   
   private int useSpell (JMenuItem j) {
-    System.out.println (spellList[Integer.parseInt (j.getText().substring (0,1))].getName ());
-    return spellList [Integer.parseInt (j.getText().substring (0,1))].use();
+    System.out.println (spellList.get(Integer.parseInt (j.getText().substring (0,1))).getName ());
+    return spellList.get(Integer.parseInt (j.getText().substring (0,1))).use();
   }
   
   public void spells (ActionEvent e) {
     spell = new JPopupMenu();
     
-    for (int i = 0; i < spellList.length; i++) {
-      final JMenuItem item = new JMenuItem (i + ". " + spellList[i].print());
+    for (int i = 0; i < spellList.size(); i++) {
+      final JMenuItem item = new JMenuItem (i + ". " + spellList.get(i).print());
       
       item.addActionListener(new ActionListener() {
           @Override
