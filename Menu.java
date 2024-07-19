@@ -92,7 +92,7 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
     addMouseMotionListener(Menu.this);
     
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    setMinimumSize (new Dimension ((int) screenSize.width / 5,(int) screenSize.height / 5));
+    setMinimumSize (new Dimension ((int) screenSize.width / 10,(int) screenSize.height / 10));
     
   }
   
@@ -102,7 +102,7 @@ public class Menu extends JPanel implements MouseListener, MouseMotionListener {
     
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     
-    return new Dimension((int) (screenSize.width / 5), (int) (screenSize.height / 5));
+    return new Dimension((int) (screenSize.width / 10), (int) (screenSize.height / 10));
   }
   
   private void getDiceType (final int num) {

@@ -3,142 +3,77 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import java.util.Scanner;
-
+import java.io.File;  // Import the File class
+import java.io.FileNotFoundException;
 
 public class Dnd {
   
-  public static void tavern () {
+  public static void addCharacter (LevelFramework lf) {
+    
+    String regex = "[,]";
+    String [] wordsInRow;
+    
+    System.out.print ("Add who? ");
+    Scanner console = new Scanner (System.in);
+    String who = console.nextLine ();
+    
+    try {
+      File myFile = new File ("characterSheet.txt");
+      Scanner myReader = new Scanner (myFile);
+      
+      while (myReader.hasNextLine ()) {
+        String data = myReader.nextLine ();
+        
+        wordsInRow = data.split (regex);
+
+        if (wordsInRow[1].compareTo (who) == 0) {
+          CharacterList cl = new CharacterList ();
+          lf.addUndefinedCharacter (cl.getCharacterType (wordsInRow));
+        }
+      }
+    }
+    catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+  }
+  
+  public static void loadLevel (LevelFramework lf) {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     
     JPanel container = new JPanel ();
     container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    Tavern cap = new Tavern ();  
-    JScrollPane display = new JScrollPane (cap, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      
+    JScrollPane display = new JScrollPane (lf, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     
     Menu m = new Menu ();
     
     container.add (display);
     container.add (m);
+    
+    lf.rollInitiative ();
     
     // create a basic JFrame  
     JFrame frame = new JFrame();  
     frame.add(container); 
     frame.setSize(screenSize.width, screenSize.height);
     frame.setVisible(true);  
+    
+    
+    Scanner obj = new Scanner (System.in);
+    String input;
+    
+    while (true) {
+      input = obj.nextLine ();
+      
+      if (input.compareTo ("exit") == 0) {
+        break;
+      }
+      if (input.compareTo ("add") == 0) {
+        addCharacter (lf);
+      }
+    }
   }
-  
-  public static void shop () {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
-    JPanel container = new JPanel ();
-    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    Shop cap = new Shop ();  
-    JScrollPane display = new JScrollPane (cap, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
-    Menu m = new Menu ();
-    
-    container.add (display);
-    container.add (m);
-    
-    // create a basic JFrame  
-    JFrame frame = new JFrame();  
-    frame.add(container); 
-    frame.setSize(screenSize.width, screenSize.height);
-    frame.setVisible(true);  
-  }
-  
-  public static void capital () {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
-    JPanel container = new JPanel ();
-    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    Capital cap = new Capital ();  
-    JScrollPane display = new JScrollPane (cap, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
-    Menu m = new Menu ();
-    
-    container.add (display);
-    container.add (m);
-    
-    // create a basic JFrame  
-    JFrame frame = new JFrame();  
-    frame.add(container); 
-    frame.setSize(screenSize.width, screenSize.height);
-    frame.setVisible(true);  
-  }
-  
-  public static void attack_port () {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
-    JPanel container = new JPanel ();
-    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    AttackPort attackPort = new AttackPort ();  
-    JScrollPane display = new JScrollPane (attackPort, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
-    Menu m = new Menu ();
-    
-    container.add (display);
-    container.add (m);
-    
-    attackPort.rollInitiative ();
-    
-    // create a basic JFrame  
-    JFrame attackPortFrame = new JFrame();  
-    attackPortFrame.add(container); 
-    attackPortFrame.setSize(screenSize.width, screenSize.height);
-    attackPortFrame.setVisible(true);  
-  }
-  
-  public static void bloodwell () {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
-    JPanel container = new JPanel ();
-    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    BloodWell blood = new BloodWell ();  
-    JScrollPane display = new JScrollPane (blood, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
-    Menu m = new Menu ();
-    
-    container.add (display);
-    container.add (m);
-    
-    blood.rollInitiative ();
-    
-    // create a basic JFrame  
-    JFrame shantaloreFrame = new JFrame();  
-    shantaloreFrame.add(container); 
-    shantaloreFrame.setSize(screenSize.width, screenSize.height);
-    shantaloreFrame.setVisible(true);  
-  }
-  
-  public static void shantalore () {
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    
-    JPanel container = new JPanel ();
-    container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-    
-    Shantalore shant = new Shantalore ();  
-    JScrollPane display = new JScrollPane (shant, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    
-    Menu m = new Menu ();
-    
-    container.add (display);
-    container.add (m);
-    
-    shant.rollInitiative ();
-    
-    // create a basic JFrame  
-    JFrame shantaloreFrame = new JFrame();  
-    shantaloreFrame.add(container); 
-    shantaloreFrame.setSize(screenSize.width, screenSize.height);
-    shantaloreFrame.setVisible(true);  
-  }
-    
   
   
   public static void main(String [] args) { 
@@ -150,22 +85,22 @@ public class Dnd {
       input = obj.nextLine ();
       
       if (input.compareTo ("attack port") == 0) {
-        attack_port ();
+        loadLevel (new AttackPort ());
       }
       else if (input.compareTo ("capital") == 0) {
-        capital ();
+        loadLevel (new Capital ());
       }
       else if (input.compareTo ("shantalore") == 0) {
-        shantalore ();
+        loadLevel (new Shantalore ());
       }
       else if (input.compareTo ("blood well") == 0) {
-        bloodwell ();
+        loadLevel (new BloodWell ());
       }
       else if (input.compareTo ("shop") == 0) {
-        shop ();
+        loadLevel (new Shop ());
       }
       else if (input.compareTo ("tavern") == 0) {
-        tavern ();
+        loadLevel (new Tavern ());
       }
       
       else if (input.compareTo ("end") == 0) {

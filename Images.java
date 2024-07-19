@@ -69,7 +69,7 @@ public class Images extends JLabel {
     // https://github.com/HCastano/FelixGame/blob/master/src/felixgame/SplashScreen.java
     try {
       image = ImageIO.read(new File(img));
-      Image scaledImage = image.getScaledInstance((int) (4 * imageHeight / 5),(int) (4 * imageHeight / 5), Image.SCALE_SMOOTH);
+      Image scaledImage = image.getScaledInstance((int) (9 * imageHeight / 10),(int) (9 * imageHeight / 10), Image.SCALE_SMOOTH);
       imageLabel = new JLabel(new ImageIcon(scaledImage));
       add(imageLabel);
     } catch (IOException e) {
@@ -88,16 +88,6 @@ public class Images extends JLabel {
     setLayout(layout);
 
     setVisible(true);
-
-    // This block of code was modified based on the code from
-    // https://github.com/HCastano/FelixGame/blob/master/src/felixgame/SplashScreen.java
-    /*try {
-      image = ImageIO.read(new File(img));
-      imageLabel = new JLabel(new ImageIcon(image));
-      add(imageLabel);
-    } catch (IOException e) {
-    }*/
-    // End of cited code
     
     try {
       image = ImageIO.read(new File(img));
@@ -119,7 +109,7 @@ public class Images extends JLabel {
     // so that our GUI is big enough
     
     if (isBackground) {
-      return new Dimension((int) (4 * imageHeight / 5),(int) (4 * imageHeight / 5));
+      return new Dimension((int) (9 * imageHeight / 10),(int) (9 * imageHeight / 10));
     }
     return new Dimension(imageWidth, imageHeight);
   }

@@ -50,7 +50,7 @@ public class Shop extends LevelFramework implements ActionListener{
     
     add (background);
     Character c [] = {};
-    characters = c;
+    addCharacter (c);
   }
 
   

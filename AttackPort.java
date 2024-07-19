@@ -9,7 +9,7 @@ public class AttackPort extends LevelFramework implements ActionListener{
   
   
   public AttackPort (){
-    setLayout (null);
+    super ();
     
      // Create and add draggable image labels
     Spell [] noSpells = {};
@@ -74,7 +74,7 @@ public class AttackPort extends LevelFramework implements ActionListener{
     add (background);
     
     Character c [] = {melkohm, healer, orc1, orc2, tank};
-    characters = c;
+    addCharacter (c);
   }
 
   

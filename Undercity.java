@@ -58,7 +58,7 @@ public class Undercity extends LevelFramework implements ActionListener{
     add (background);
     
     Character c [] = {gabe, evan, liam, jared, alex};
-    characters = c;
+    addCharacter (c);
   }
 
   

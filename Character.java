@@ -59,10 +59,6 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     
     // Load the image
     try {
-      /*image = ImageIO.read(new File(imagePath));
-      Image scaledImage = image.getScaledInstance(50,50, Image.SCALE_SMOOTH);
-      setIcon(new ImageIcon(scaledImage)); // Set the image as icon of the JLabel
-      */
       image = ImageIO.read(new File(imagePath));
       Image scaledImage = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
       JLabel imageLabel = new JLabel(new ImageIcon(scaledImage));
@@ -76,10 +72,7 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     // Set label properties
     panel.setOpaque(false);
     setBackground(Color.white);
-    
-    //textField.setPreferredSize(new Dimension(textField.getPreferredSize().width, textField.getPreferredSize().height));
-    //panel.setPreferredSize(new Dimension(50, 50 + textField.getPreferredSize().height));
-    
+
     // Create popup menu with options
     popupMenu = new JPopupMenu();
     JMenuItem option1 = new JMenuItem("Check/Save");
@@ -264,7 +257,7 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
     Random random = new Random();
     int randomNumber = random.nextInt(20) + 1;
     
-    System.out.println ("Rolled: " + randomNumber + " + " + initiativeBonus);
+    System.out.println ("Initiative: " + randomNumber + " + " + initiativeBonus);
     
     return randomNumber + initiativeBonus;
   }
@@ -311,6 +304,7 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   }
   
   private int useAttack (JMenuItem j) {
+    System.out.println (attackList[Integer.parseInt (j.getText().substring (0,1))].getName ());
     return attackList [Integer.parseInt (j.getText().substring (0,1))].use();
   }
   
@@ -327,8 +321,6 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
       item.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            System.out.println ("I made it " );
-            
             int hit = rollToHit (item);
             
             int option = JOptionPane.showOptionDialog(null, 
@@ -352,6 +344,7 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   }
   
   private int useSpell (JMenuItem j) {
+    System.out.println (spellList[Integer.parseInt (j.getText().substring (0,1))].getName ());
     return spellList [Integer.parseInt (j.getText().substring (0,1))].use();
   }
   
@@ -364,7 +357,6 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
       item.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            System.out.println ("I made it " );
             int damage = useSpell (item);
             JOptionPane.showMessageDialog(Character.this, "Did this much damage " + damage);
           }

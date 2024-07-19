@@ -9,9 +9,6 @@ public class Shantalore extends LevelFramework implements ActionListener{
   
   
   public Shantalore (){
-    setLayout (null);
-    
-     // Create and add draggable image labels
     Spell [] noSpells = {};
     Attack [] noAttacks = {};
     
@@ -76,7 +73,7 @@ public class Shantalore extends LevelFramework implements ActionListener{
     add (background);
     
     Character c [] = {melkohm, ogre1, ogre2, healer1, healer2, valentezna};
-    characters = c;
+    addCharacter (c);
   }
 
   

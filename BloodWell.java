@@ -73,7 +73,7 @@ public class BloodWell extends LevelFramework implements ActionListener{
     add (background);
     
     Character c [] = {melkohm, bloodOgre, valentezna};
-    characters = c;
+    addCharacter (c);
   }
 
   

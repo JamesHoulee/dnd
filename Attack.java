@@ -90,4 +90,8 @@ public class Attack {
     
     return randomNumber + hitMod;
   }
+  
+  public String getName () {
+    return name;
+  }
 }

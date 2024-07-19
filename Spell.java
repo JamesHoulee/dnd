@@ -74,5 +74,9 @@ public class Spell {
     
     return damage;
   }
+  
+  public String getName () {
+    return name;
+  }
 }
     
