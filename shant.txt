@@ -1,3 +1,9 @@
-Shantalore.jpg,1000,1000
-Ogre,655,480
-Ogre,210,255
+Shantalore.jpg,1814,1019
+Alex,1700,900
+Cum, 1760,910
+Evan, 1630, 870
+Melkohm, 1685, 920
+Gabe, 1500, 720
+Wom, 1555, 700
+Jared, 1760, 860
+
