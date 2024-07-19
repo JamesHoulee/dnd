@@ -8,6 +8,9 @@ import javax.imageio.ImageIO;
 import java.util.Random;
 import java.awt.Image;
 
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+
 
 public abstract class Character extends JPanel implements MouseListener, MouseMotionListener {
   protected int mouseX, mouseY; // Variables to store the mouse coordinates
@@ -251,6 +254,36 @@ public abstract class Character extends JPanel implements MouseListener, MouseMo
   
   public Character(String imagePath, String n, int h, int a, Attack [] att, Spell [] sp) {
     this (imagePath, n, h, a, att, sp, 50);
+  }
+  
+  public Character (String fileName) {
+    String regex = "[,]";
+    
+    
+    
+    try {
+      File myFile = new File (fileName);
+      Scanner myReader = new Scanner (myFile);
+      
+      String charInfo;
+      String attackInfo;
+      String spellInfo;
+      
+      while (myReader.hasNextLine ()) {
+        String data = myReader.nextLine ();
+        
+        wordsInRow = data.split (regex);
+
+        if (wordsInRow[1].compareTo (who) == 0) {
+          CharacterList cl = new CharacterList ();
+          lf.addUndefinedCharacter (cl.getCharacterType (wordsInRow));
+        }
+      }
+    }
+    catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
   }
   
   public int rollInitiative () {
